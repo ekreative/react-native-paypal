@@ -33,9 +33,9 @@ android {
     targetSdkVersion getExtOrIntegerDefault('targetSdkVersion')
     versionCode 1
     versionName "1.0"
-    
+
   }
-  
+
   buildTypes {
     release {
       minifyEnabled false
@@ -48,12 +48,24 @@ android {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
   }
+
+  kotlinOptions {
+    jvmTarget = "1.8"
+  }
 }
 
 repositories {
   mavenCentral()
   jcenter()
   google()
+
+  maven {
+    url  "https://cardinalcommerceprod.jfrog.io/artifactory/android"
+    credentials {
+      username 'paypal_sgerritz'
+      password 'AKCp8jQ8tAahqpT5JjZ4FRP2mW7GMoFZ674kGqHmupTesKeAY2G8NcmPKLuTxTGkKjDLRzDUQ'
+    }
+  }
 
   def found = false
   def defaultDir = null
@@ -63,8 +75,8 @@ repositories {
     defaultDir = rootProject.ext.get('reactNativeAndroidRoot')
   } else {
     defaultDir = new File(
-            projectDir,
-            '/../../../node_modules/react-native/android'
+      projectDir,
+      '/../../../node_modules/react-native/android'
     )
   }
 
@@ -84,13 +96,13 @@ repositories {
       parentDir = parentDir.parentFile
 
       def androidSourcesDir = new File(
-              parentDir,
-              'node_modules/react-native'
+        parentDir,
+        'node_modules/react-native'
       )
 
       def androidPrebuiltBinaryDir = new File(
-              parentDir,
-              'node_modules/react-native/android'
+        parentDir,
+        'node_modules/react-native/android'
       )
 
       if (androidPrebuiltBinaryDir.exists()) {
@@ -115,16 +127,18 @@ repositories {
 
   if (!found) {
     throw new GradleException(
-            "${project.name}: unable to locate React Native android sources. " +
-                    "Ensure you have you installed React Native as a dependency in your project and try again."
+      "${project.name}: unable to locate React Native android sources. " +
+        "Ensure you have you installed React Native as a dependency in your project and try again."
     )
   }
 }
 
 def kotlin_version = getExtOrDefault('kotlinVersion')
+def paypal_checkout_version = '0.3.1'
 
 dependencies {
   // noinspection GradleDynamicVersion
   api 'com.facebook.react:react-native:+'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  implementation "com.paypal.checkout:android-sdk:$paypal_checkout_version"
 }

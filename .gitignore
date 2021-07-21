@@ -33,6 +33,9 @@ project.xcworkspace
 #
 .idea
 .gradle
+gradle/
+gradlew
+gradlew.bat
 local.properties
 android.iml
 
