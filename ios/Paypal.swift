@@ -2,20 +2,26 @@ import PayPalCheckout
 
 @objc(Paypal)
 class Paypal: NSObject {
-    @objc func startWithOrderId(
+    @objc
+    static func requiresMainQueueSetup() -> Bool {
+        return true
+    }
+    
+    @objc
+    func startWithOrderId(
         _
             options: NSDictionary,
         resolver: @escaping RCTPromiseResolveBlock,
         rejecter: @escaping RCTPromiseRejectBlock
     ) -> Void {
-        let clientID = options["clientID"] as? String ?? ""
+        let clientId = options["clientId"] as? String ?? ""
         let returnUrl = options["returnUrl"] as? String ?? ""
         let orderId = options["orderId"] as? String ?? ""
         let useSandbox = options["useSandbox"] as? Bool ?? true
         
         let environment = useSandbox ? Environment.sandbox : Environment.live
         let config = CheckoutConfig(
-            clientID: clientID,
+            clientID: clientId,
             returnUrl: returnUrl,
             environment: environment
         )
@@ -27,7 +33,13 @@ class Paypal: NSObject {
         }
         
         Checkout.setOnApproveCallback { approval in
-            resolver(approval.data)
+            let approvalData = approval.data
+            
+            resolver([
+                "payerId": approvalData.payerID,
+                "orderId": approvalData.ecToken,
+                "paymentId": approvalData.paymentID
+            ])
         }
         
         Checkout.setOnCancelCallback {
