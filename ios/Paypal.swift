@@ -30,7 +30,7 @@ class Paypal: NSObject {
             resolver(approval.data)
         }
         
-        Checkout.setOnCancelCallback { error in
+        Checkout.setOnCancelCallback {
             rejecter("PAYPAL_CANCELLED", "The user cancelled", nil)
         }
         
