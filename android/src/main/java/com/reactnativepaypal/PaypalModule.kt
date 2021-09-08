@@ -34,7 +34,15 @@ class PaypalModule(private val reactContext: ReactApplicationContext?) :
         val orderId = parameters.getString("orderId") ?: ""
         createOrderActions.set(orderId)
       },
-      onApprove = OnApprove { approval -> promise.resolve(approval.data) },
+      onApprove = OnApprove { approval ->
+        run {
+          val result = Arguments.createMap()
+          result.putString("orderId", approval.data.orderId)
+          result.putString("payerId", approval.data.payerId)
+          result.putString("paymentId", approval.data.paymentId)
+          promise.resolve(result)
+        }
+      },
       onCancel = OnCancel {
         promise.reject(
           parameters.getString("cancelErrorCode") ?: PAYPAL_CANCEL_DEFAULT_CODE,
