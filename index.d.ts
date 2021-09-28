@@ -1,5 +1,5 @@
 declare module 'react-native-paypal' {
-  interface StartWithOrderIdOptions {
+  export interface StartWithOrderIdOptions {
     clientId: string;
     useSandbox: boolean;
     returnUrl: string;
@@ -7,7 +7,7 @@ declare module 'react-native-paypal' {
     cancelErrorCode?: string;
   }
 
-  interface PaypalApprovalData {
+  export interface PaypalApprovalData {
     payerId: string;
     orderId: string;
     paymentId?: string;
