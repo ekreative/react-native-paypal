@@ -139,7 +139,7 @@ dependencies {
   // noinspection GradleDynamicVersion
   api 'com.facebook.react:react-native:+'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  implementation ('com.paypal.checkout:android-sdk:0.4.4') {
+  implementation ('com.paypal.checkout:android-sdk:0.6.0') {
     exclude group: 'com.paypal.android.sdk', module: 'data-collector'
   }
 }
