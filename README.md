@@ -5,7 +5,7 @@
 ### Installation
 
 ```sh
-npm install react-native-paypal
+npm install @ekreative/react-native-paypal
 ```
 
 ### Android Specific
@@ -39,7 +39,7 @@ TODO
 ## Usage
 
 ```js
-import Paypal from "react-native-paypal";
+import Paypal from " @ekreative/react-native-paypal";
 
 // ...
 
