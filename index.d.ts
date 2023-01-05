@@ -1,4 +1,4 @@
-declare module 'react-native-paypal' {
+declare module '@ekreative/react-native-paypal' {
   export interface StartWithOrderIdOptions {
     clientId: string;
     useSandbox: boolean;
