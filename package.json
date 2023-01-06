@@ -1,6 +1,6 @@
 {
   "name": "@ekreative/react-native-paypal",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "PayPal Checkout implementation for React Native",
   "files": [
     "src",
